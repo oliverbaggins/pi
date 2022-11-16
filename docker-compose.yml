@@ -4,17 +4,26 @@ services:
   mongo_db:
     restart: always
     container_name: mongo_db
-    image: mongo
+    image: mongo:latest
     ports:
       - "27017:27017"
   app:
     build: .
-    container_name: node_app
     restart: always
+    # container_name: node_app
     command: npm run devStart
-    ports:
-      - "5000:5000"
+    # ports:
+    #   - "5000:5000"
     volumes:
       - .:/usr/app
     links:
       - mongo_db
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    ports:
+      - 5000:5000

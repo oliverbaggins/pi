@@ -6,7 +6,13 @@ const methodOverride = require('method-override')
 const PORT = 5000
 const HOST = '0.0.0.0'
 const app = express()
-
+const os = require('os')
+/*
+app.use('/', async (req, res) => {
+    console.log(`Container ID: ${os.hostname()}`)
+    res.json({ message: 'Ok it works...', hostname:os.hostname()})
+})
+*/
 mongoose.connect('mongodb://mongo_db:27017/pi-app')
 
 app.set('view engine', 'ejs')
@@ -26,3 +32,4 @@ app.get('/', async (req, res) => {
 app.use('/articles', articleRouter)
 
 app.listen(PORT, HOST)
+
