@@ -31,5 +31,7 @@ app.get('/', async (req, res) => {
 
 app.use('/articles', articleRouter)
 
-app.listen(PORT, HOST)
+app.listen(PORT, HOST, () => {
+    console.info(`Running on Container: Container ID:${os.hostname}`)
+})
 
